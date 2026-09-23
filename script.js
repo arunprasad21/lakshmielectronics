@@ -9,13 +9,15 @@ function toggleTheme() {
   applyTheme(current === 'dark' ? 'light' : 'dark');
 }
 
-/* Initial load: saved preference → system preference */
+/* Initial load: saved preference → light default */
 (function () {
   const saved = localStorage.getItem('le-theme');
   if (saved) { applyTheme(saved); return; }
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(prefersDark ? 'dark' : 'light');
+  applyTheme('light');
 })();
+
+/* ── COPYRIGHT YEAR ── */
+document.getElementById('copy-year').textContent = new Date().getFullYear();
 
 /* ── SCROLL FADE-UP ── */
 const observer = new IntersectionObserver((entries) => {
