@@ -1,16 +1,15 @@
 /* ── THEME ── */
-const root = document.documentElement;
-
 function applyTheme(t) {
-  root.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem('le-theme', t);
 }
 
 function toggleTheme() {
-  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  const current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
 }
 
-/* Init: saved pref > system pref */
+/* Initial load: saved preference → system preference */
 (function () {
   const saved = localStorage.getItem('le-theme');
   if (saved) { applyTheme(saved); return; }
@@ -34,7 +33,7 @@ function closeMenu() {
 }
 
 /* ── FORM ── */
-const WEB3FORMS_KEY = 'd6c3cff1-ffc1-4e17-9a4b-14825641a43c';
+const WEB3FORMS_KEY = '9f904cf8-4d38-4dce-ba0f-a64747791f82';
 
 async function handleSubmit() {
   const name  = document.getElementById('name').value.trim();
@@ -56,7 +55,7 @@ async function handleSubmit() {
         access_key: WEB3FORMS_KEY,
         subject: `TV Repair Enquiry – ${name}`,
         from_name: 'Lakshmi Electronics Website',
-        replyto: 'aruntest2103@gmail.com',
+        replyto: 'Lakshmielectronics1988@gmail.com',
         phone,
         name,
         brand: brand || 'Not specified',
