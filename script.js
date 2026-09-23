@@ -17,6 +17,17 @@ function toggleTheme() {
   applyTheme(prefersDark ? 'dark' : 'light');
 })();
 
+/* ── SCROLL FADE-UP ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* ── NAV SCROLL SHADOW ── */
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
 /* ── MOBILE MENU ── */
 function toggleMenu() {
   const h = document.getElementById('hamburger');
