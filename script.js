@@ -16,6 +16,14 @@ function toggleTheme() {
   applyTheme('light');
 })();
 
+/* ── WHATSAPP FLOAT ── */
+document.getElementById('wa-float-btn').addEventListener('click', (e) => {
+  e.preventDefault();
+  const n = ['91', '7418', '517651'].join('');
+  const msg = encodeURIComponent('Hi, I need help with my TV repair.');
+  window.open(`https://wa.me/${n}?text=${msg}`, '_blank', 'noopener,noreferrer');
+});
+
 /* ── COPYRIGHT YEAR ── */
 document.getElementById('copy-year').textContent = new Date().getFullYear();
 
@@ -56,6 +64,9 @@ async function handleSubmit() {
 
   if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
 
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+  if (!turnstileToken) { alert('Please complete the security check.'); return; }
+
   const btn = document.querySelector('.form-submit');
   btn.disabled = true;
   btn.textContent = 'Sending…';
@@ -72,7 +83,8 @@ async function handleSubmit() {
         phone,
         name,
         brand: brand || 'Not specified',
-        issue: issue || 'Not specified'
+        issue: issue || 'Not specified',
+        'cf-turnstile-response': turnstileToken
       })
     });
 
@@ -89,5 +101,6 @@ async function handleSubmit() {
   } finally {
     btn.disabled = false;
     btn.textContent = 'Send message';
+    if (window.turnstile) window.turnstile.reset('#cf-turnstile');
   }
 }
